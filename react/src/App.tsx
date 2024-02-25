@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import React, { useState } from "react";
+import { HomePage } from "./components/HomePage.tsx";
+import { ReserveTripPage } from "./components/ReserveTripPage.tsx";
+import { FilterTripsPage } from "./components/FilterTripsPage.tsx";
+import { BookTripPage } from "./components/BookTripPage.tsx";
+
+const enum EPage {
+  Homepage = 1,
+  ReserveTripPage,
+  FilterTripsPage,
+  BookTripPage,
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentPage, setCurrentPage] = useState<EPage>(EPage.Homepage);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        {currentPage === EPage.Homepage && (
+          <HomePage
+            onNavToReserveTripPage={() => setCurrentPage(EPage.ReserveTripPage)}
+          />
+        )}
+        {currentPage === EPage.ReserveTripPage && (
+          <ReserveTripPage
+            onNavToHomePage={() => setCurrentPage(EPage.Homepage)}
+            onNavToFilterTripsPage={() => setCurrentPage(EPage.FilterTripsPage)}
+          />
+        )}
+        {currentPage === EPage.FilterTripsPage && (
+          <FilterTripsPage
+            onNavToBookTripPage={() => setCurrentPage(EPage.BookTripPage)}
+            onNavToReserveTripPage={() => setCurrentPage(EPage.ReserveTripPage)}
+          />
+        )}
+        {currentPage === EPage.BookTripPage && (
+          <BookTripPage
+            onNavToHomePage={() => setCurrentPage(EPage.Homepage)}
+            onNavToFilterTripsPage={() => setCurrentPage(EPage.FilterTripsPage)}
+          />
+        )}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
