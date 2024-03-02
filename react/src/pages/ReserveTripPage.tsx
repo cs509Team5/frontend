@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LocationSelector } from "../components/LocationSelector.tsx";
 import { DateSelector } from "../components/DateSelector.tsx";
 import { CheckBoxSelector } from "../components/CheckBoxSelector.tsx";
@@ -16,6 +16,24 @@ export function ReserveTripPage({
   // const [returnDate, setReturnDate] = useState(new Date());
   const [roundTrip, setRoundTrip] = useState(true);
   const [firstClass, setFirstClass] = useState(false);
+
+  const [airportList, setAirportList] = useState([]);
+  
+  useEffect(() => {
+    fetch("http://localhost:8080/airports")
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Network response was not ok.');
+      })
+      .then((data) => {
+        setAirportList(data.map((airport: { name: string; }) => airport.name));
+      })
+      .catch((error) => {
+        console.error("There was a problem with the fetch operation:", error);
+      });
+  }, []);
 
   return (
     <>
