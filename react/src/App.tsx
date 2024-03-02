@@ -1,9 +1,9 @@
 import "./App.css";
 import { useState } from "react";
-import { HomePage } from "./components/pages/HomePage.tsx";
-import { ReserveTripPage } from "./components/pages/ReserveTripPage.tsx";
-import { FilterTripsPage } from "./components/pages/FilterTripsPage.tsx";
-import { BookTripPage } from "./components/pages/BookTripPage.tsx";
+import { HomePage } from "./pages/HomePage.tsx";
+import { ReserveTripPage } from "./pages/ReserveTripPage.tsx";
+import { FilterTripsPage } from "./pages/FilterTripsPage.tsx";
+import { BookTripPage } from "./pages/BookTripPage.tsx";
 
 const enum EPage {
   Homepage = 1,
