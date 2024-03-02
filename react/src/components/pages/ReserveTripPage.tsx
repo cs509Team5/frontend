@@ -22,7 +22,6 @@ export function ReserveTripPage({
       })
       .then((data) => {
         setAirportList(data.map((airport: { name: string; }) => airport.name));
-        console.log("airportList", airportList);
       })
       .catch((error) => {
         console.error("There was a problem with the fetch operation:", error);
