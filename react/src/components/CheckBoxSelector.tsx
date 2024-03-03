@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 interface Props {
   onChecked: (checked: boolean) => void;
   startChecked?: boolean;
@@ -11,8 +9,6 @@ export function CheckBoxSelector({
   startChecked = true,
   children,
 }: Props) {
-  const [roundTrip, setRoundTrip] = useState(startChecked);
-
   return (
     <div className="form-check">
       <label
@@ -26,10 +22,8 @@ export function CheckBoxSelector({
         type="checkbox"
         defaultChecked={startChecked}
         id={"flexCheckChecked" + children}
-        //defaultChecked={roundTrip}
-        onChange={() => {
-          setRoundTrip(!roundTrip);
-          onChecked(roundTrip);
+        onChange={(event) => {
+          onChecked(event.target.checked);
         }}
       />
     </div>

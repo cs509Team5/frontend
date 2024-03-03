@@ -1,12 +1,29 @@
 // import { useId, useState } from "react";
 
+import { useEffect, useState } from "react";
+
 interface Props {
   children: string;
 }
 
 export function LocationSelector({ children }: Props) {
-  // const id = useId();
-  // const [input, setInput] = useState(props?.value ?? "");
+  const [airportList, setAirportList] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/airports")
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Network response was not ok.");
+      })
+      .then((data) => {
+        setAirportList(data.map((airport: { name: string }) => airport.name));
+      })
+      .catch((error) => {
+        console.error("There was a problem with the fetch operation:", error);
+      });
+  }, []);
 
   return (
     <form className="row g-3">
@@ -14,23 +31,11 @@ export function LocationSelector({ children }: Props) {
         <label htmlFor="validationServer03" className="form-label">
           {children}
         </label>
-        <input
-          type="text"
-          // id={id}
-          // value={input}
-          // onInput={(e) => setInput(e.target.value)}
-          list={"cities"}
-        />
+        <input type="text" list={"cities"} />
         <datalist id="cities">
-          <option value="Boston" />
-          <option value="Somerville" />
-          <option value="Cambridge" />
-          <option value="Worcester" />
-          <option value="San Francisco" />
-          <option value="New York" />
-          <option value="Seattle" />
-          <option value="Los Angeles" />
-          <option value="Chicago" />
+          {airportList.map((a) => (
+            <option value={a} />
+          ))}
         </datalist>
       </div>
     </form>
