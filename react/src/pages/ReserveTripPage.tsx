@@ -2,6 +2,7 @@ import { useState } from "react";
 import { LocationSelector } from "../components/LocationSelector.tsx";
 import { DateSelector } from "../components/DateSelector.tsx";
 import { CheckBoxSelector } from "../components/CheckBoxSelector.tsx";
+import { LayoverSelector } from "../components/LayoverSelector.tsx";
 
 interface Props {
   onNavToHomePage: () => void;
@@ -14,6 +15,7 @@ export function ReserveTripPage({
 }: Props) {
   const [roundTrip, setRoundTrip] = useState(true);
   const [firstClass, setFirstClass] = useState(false);
+  const [numLayovers, setnumLayovers] = useState(0);
 
   return (
     <>
@@ -28,6 +30,9 @@ export function ReserveTripPage({
       <CheckBoxSelector onChecked={setFirstClass} startChecked={firstClass}>
         First Class
       </CheckBoxSelector>
+      <LayoverSelector onChecked={setnumLayovers}>
+        Number of layovers
+      </LayoverSelector>
       <button onClick={() => onNavToFilterTripsPage()}>Find Flights</button>
       <button onClick={() => onNavToHomePage()}>Back</button>
     </>
