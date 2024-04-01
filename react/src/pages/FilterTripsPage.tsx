@@ -1,4 +1,4 @@
-//import { useState } from "react";
+import { useState } from "react";
 
 interface Props {
   onNavToBookTripPage: () => void;
@@ -11,19 +11,25 @@ export function FilterTripsPage({
   onNavToReserveTripPage,
   searchResults,
 }: Props) {
+
+  const [sortedResults, setSortedResults] = useState<Trip[]>(searchResults);
+
   const handleFilterByPrice = () => {
     // TODO: Implement
+    const sortedTrips = [...searchResults].sort((a,b) => a.price - b.price);
+    setSortedResults(sortedTrips)
   };
 
   const handleResetFilter = () => {
     // TODO: Implement
+    setSortedResults(searchResults)
   };
 
   return (
     <>
       <h1>Filter for the flights that best fit your trip!</h1>
       <div>
-        {searchResults.map((trip,index) => (
+        {sortedResults.map((trip,index) => (
           <div key={index} className="card trip-card">
             <div className="duration">{trip.duration}</div>
             <div className="flight-info">
@@ -38,7 +44,6 @@ export function FilterTripsPage({
           </div>
         ))}
       </div>
-      {<p>Sorted by price (lowest to highest)</p>}
       <div>
         <button onClick={handleFilterByPrice}>Filter by Price (Low to High)</button>
         <button onClick={handleResetFilter}>Reset Filter</button>
