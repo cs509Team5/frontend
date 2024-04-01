@@ -25,6 +25,21 @@ export function FilterTripsPage({
     setSortedResults(searchResults)
   };
 
+  const handleFilterByDuration = () => {
+    //TODO: Implement
+    const sortedTrips = [...sortedResults].sort((a, b) => {
+      const durationA = convertDurationToMinutes(a.duration);
+      const durationB = convertDurationToMinutes(b.duration);
+      return durationA - durationB;
+    });
+    setSortedResults(sortedTrips)
+  };
+
+  const convertDurationToMinutes = (duration: string): number => {
+    const [hours, minuites] = duration.split('hr ');
+    return parseInt(hours, 10) * 60 + parseInt(minuites.replace('min', ''), 10);
+  }
+
   return (
     <>
       <h1>Filter for the flights that best fit your trip!</h1>
@@ -47,6 +62,7 @@ export function FilterTripsPage({
       <div>
         <button onClick={handleFilterByPrice}>Filter by Price (Low to High)</button>
         <button onClick={handleResetFilter}>Reset Filter</button>
+        <button onClick={handleFilterByDuration}>Filter by Duration</button>
       </div>
       <button onClick={() => onNavToBookTripPage()}>
         Confirm Selected Flights
