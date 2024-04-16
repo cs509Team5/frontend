@@ -5,6 +5,7 @@ import { ReserveTripPage } from "./pages/ReserveTripPage.tsx";
 import { FilterTripsPage } from "./pages/FilterTripsPage.tsx";
 import { BookTripPage } from "./pages/BookTripPage.tsx";
 import { mockTripResults } from "./pages/FilterTripsPage.tsx"
+import { FlightsProvider } from "./FlightsContext.tsx";
 
 const enum EPage {
   Homepage = 1,
@@ -18,6 +19,7 @@ function App() {
 
   return (
     <>
+    <FlightsProvider>
       <div className="card">
         {currentPage === EPage.Homepage && (
           <HomePage
@@ -44,6 +46,7 @@ function App() {
           />
         )}
       </div>
+    </FlightsProvider>
     </>
   );
 }

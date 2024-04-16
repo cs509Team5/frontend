@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 
 interface Props {
   children: string;
+  handleAirportChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function LocationSelector({ children }: Props) {
+export function LocationSelector({ children, handleAirportChange }: Props) {
   const [airportList, setAirportList] = useState([]);
 
+  //TODO: This call should be mvoed to the ReserveTripPage and the list of airports should be passed down as a prop
   useEffect(() => {
     fetch("http://localhost:8080/airports")
       .then((response) => {
@@ -31,7 +33,7 @@ export function LocationSelector({ children }: Props) {
         <label htmlFor="validationServer03" className="form-label">
           {children}
         </label>
-        <input type="text" list={"cities"} />
+        <input type="text" list={"cities"} onChange={handleAirportChange} />
         <datalist id="cities">
           {airportList.map((a) => (
             <option value={a} />
