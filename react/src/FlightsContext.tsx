@@ -1,73 +1,89 @@
 // FlightContext.tsx
-import React, { createContext, useContext, useState, ReactNode, FunctionComponent } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  FunctionComponent,
+} from "react";
 
 interface FlightCriteria {
   departureAirport: string;
   arrivalAirport: string;
-  flightNumber: number;
+  flightNumber: string; // number;
   departureDate: string;
   returnDate: string;
-  numOfFlexibleDate?: number;
-  numberOfStopover: number;
-  acceptFirstClass: boolean;
-  acceptEconomy: boolean;
+  numOfFlexibleDate?: string;
+  numberOfStopover: string; //number;
+  acceptFirstClass: string; //boolean;
+  acceptEconomy: string; //boolean;
 }
 
+export type Flight = {
+  departDatetime: string;
+  arriveDatetime: string;
+  departAirport: string;
+  arriveAirport: string;
+  flightNumber: string;
+  seatClass: string;
+  flightType: string;
+  isLayover: string;
+  //cost?: number;
+};
+
 export type SearchResponse = {
-    isSuccess: boolean;
-    departureFlights: {
-      special: Array<{
-        departdatetime: string;
-        arrivedatetime: string;
-        departairport: string;
-        arriveairport: string;
-        flightnumber: string;
-        seatClass: string;
-        flightType: string;
-        isLayover: string;
-      }>;
-    };
-    returnFlights: {
-      special: Array<{
-        departdatetime: string;
-        arrivedatetime: string;
-        departairport: string;
-        arriveairport: string;
-        flightnumber: string;
-        seatClass: string;
-        flightType: string;
-        isLayover: string;
-      }>;
-    };
-  };
+  isSuccess: boolean;
+  departureFlights: Flight[];
+  returnFlights: Flight[];
+};
 
 interface FlightsContextType {
-  flights: SearchResponse[];
+  flights: SearchResponse;
   fetchFlights: (criteria: FlightCriteria) => void;
 }
 
 const FlightsContext = createContext<FlightsContextType | null>(null);
 
-export const useFlights = () => useContext(FlightsContext) as FlightsContextType;
+export const useFlights = () =>
+  useContext(FlightsContext) as FlightsContextType;
 
 interface FlightsProviderProps {
   children: ReactNode;
 }
 
-export const FlightsProvider: FunctionComponent<FlightsProviderProps> = ({ children }) => {
-  const [flights, setFlights] = useState<SearchResponse[]>([]);
+export const FlightsProvider: FunctionComponent<FlightsProviderProps> = ({
+  children,
+}) => {
+  const [flights, setFlights] = useState<SearchResponse>({
+    isSuccess: false,
+    departureFlights: [],
+    returnFlights: [],
+  });
 
-  const fetchFlights = (criteria: FlightCriteria) => {
-    fetch('http://localhost:8080/search', {
-      method: 'POST',
+  const fetchFlights = async (criteria: FlightCriteria) => {
+    console.log(criteria);
+    await fetch("http://localhost:8080/search", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(criteria)
+      body: JSON.stringify(criteria),
     })
-    .then(response => response.json())
-    .then(data => setFlights(data))
-    .catch(error => console.error('Error fetching flights:', error));
+      .then((response) => {
+        console.log("Response:");
+        console.log(response);
+
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Network response was not ok.");
+      })
+      .then((data) => {
+        console.log("Data:");
+        console.log(data);
+        setFlights(data);
+      })
+      .catch((error) => console.error("Error fetching flights:", error));
   };
 
   return (

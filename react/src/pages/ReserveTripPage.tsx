@@ -22,46 +22,52 @@ export function ReserveTripPage({
   const [departureDate, setDepartureDate] = useState(new Date());
   const [arrivalDate, setArrivalDate] = useState(new Date());
 
-  const { fetchFlights } = useFlights();
+  const { fetchFlights, flights } = useFlights();
 
-  const handleDepartureAirportChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDepartureAirportChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     setDepartureAirport(event.target.value);
-  }
+  };
 
-  const handleArrivalAirportChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleArrivalAirportChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     setArrivalAirport(event.target.value);
-  }
+  };
 
   const handleDepartureDateChange = (date: Date) => {
     setDepartureDate(date);
-  }
+  };
 
   const handleArrivalDateChange = (date: Date) => {
     setArrivalDate(date);
-  }
+  };
 
   const handleFindFlightsClick = () => {
     fetchFlights({
       departureAirport,
       arrivalAirport,
-      flightNumber: numLayovers,
-      departureDate: formatDate(departureDate),
-      returnDate: formatDate(arrivalDate),
-      numberOfStopover: numLayovers,
-      acceptFirstClass: firstClass,
-      acceptEconomy: !firstClass,
+      flightNumber: "0", //0,
+      departureDate: "2023-01-05", // formatDate(departureDate),
+      returnDate: "", //formatDate(arrivalDate),
+      numberOfStopover: "0", //numLayovers,
+      acceptFirstClass: "true", // firstClass,
+      acceptEconomy: "true", //!firstClass,
     });
 
+    console.log("Flights");
+    console.log(flights);
     onNavToFilterTripsPage();
-  }
+  };
 
   const formatDate = (date: Date) => {
     const year = date.getFullYear();
-    const month = date.getMonth() + 1;  // getMonth() returns 0-11
+    const month = date.getMonth() + 1; // getMonth() returns 0-11
     const day = date.getDate();
-  
-    return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-  }
+
+    return `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
+  };
 
   return (
     <>
@@ -69,10 +75,20 @@ export function ReserveTripPage({
       <CheckBoxSelector onChecked={setRoundTrip} startChecked={roundTrip}>
         Round Trip
       </CheckBoxSelector>
-      <DateSelector handleDateSelection={handleDepartureDateChange}>Leave on</DateSelector>
-      {roundTrip && <DateSelector handleDateSelection={handleArrivalDateChange}>Return on</DateSelector>}
-      <LocationSelector handleAirportChange={handleDepartureAirportChange}>Departure Airport</LocationSelector>
-      <LocationSelector handleAirportChange={handleArrivalAirportChange}>Destination Airport</LocationSelector>
+      <DateSelector handleDateSelection={handleDepartureDateChange}>
+        Leave on
+      </DateSelector>
+      {roundTrip && (
+        <DateSelector handleDateSelection={handleArrivalDateChange}>
+          Return on
+        </DateSelector>
+      )}
+      <LocationSelector handleAirportChange={handleDepartureAirportChange}>
+        Departure Airport
+      </LocationSelector>
+      <LocationSelector handleAirportChange={handleArrivalAirportChange}>
+        Destination Airport
+      </LocationSelector>
       <CheckBoxSelector onChecked={setFirstClass} startChecked={firstClass}>
         First Class
       </CheckBoxSelector>
