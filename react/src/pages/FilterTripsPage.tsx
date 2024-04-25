@@ -13,6 +13,8 @@ export function FilterTripsPage({
 }: Props) {
 
   const [sortedResults, setSortedResults] = useState<Trip[]>(searchResults);
+  // adding the below to make trip cards interactive for selection
+  const [selectedTrip, setSelectedTrip] = useState<Trip | null>(null);
 
   const handleFilterByPrice = () => {
     // TODO: Implement
@@ -35,6 +37,10 @@ export function FilterTripsPage({
     setSortedResults(sortedTrips)
   };
 
+  const handleTripCardClick = (trip: Trip) => {
+    setSelectedTrip(trip);
+  };
+
   const convertDurationToMinutes = (duration: string): number => {
     const [hours, minuites] = duration.split('hr ');
     return parseInt(hours, 10) * 60 + parseInt(minuites.replace('min', ''), 10);
@@ -45,7 +51,11 @@ export function FilterTripsPage({
       <h1>Filter for the flights that best fit your trip!</h1>
       <div>
         {sortedResults.map((trip,index) => (
-          <div key={index} className="card trip-card">
+          <div
+            key={index} 
+            className={`card trip-card ${selectedTrip === trip ? 'selected' : ''}`}
+            onClick={() => handleTripCardClick(trip)}
+            >
             <div className="duration">{trip.duration}</div>
             <div className="flight-info">
               <p>
