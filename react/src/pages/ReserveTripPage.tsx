@@ -7,7 +7,7 @@ import { useFlights } from "../FlightsContext.tsx";
 
 interface Props {
   onNavToHomePage: () => void;
-  onNavToFilterTripsPage: () => void;
+  onNavToFilterTripsPage: (roundTrip: boolean) => void;
 }
 
 export function ReserveTripPage({
@@ -58,7 +58,7 @@ export function ReserveTripPage({
 
     console.log("Flights");
     console.log(flights);
-    onNavToFilterTripsPage();
+    onNavToFilterTripsPage(roundTrip);
   };
 
   const formatDate = (date: Date) => {
@@ -95,7 +95,7 @@ export function ReserveTripPage({
       <LayoverSelector onChecked={setnumLayovers}>
         Number of layovers
       </LayoverSelector>
-      <button onClick={() => handleFindFlightsClick()}>Find Flights</button>
+      <button onClick={handleFindFlightsClick}>Find Flights</button>
       <button onClick={() => onNavToHomePage()}>Back</button>
     </>
   );

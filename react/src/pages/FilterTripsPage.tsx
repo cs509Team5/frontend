@@ -4,25 +4,40 @@ import { Flight, useFlights } from "../FlightsContext.tsx";
 interface Props {
   onNavToBookTripPage: () => void;
   onNavToReserveTripPage: () => void;
+  onNavToFilterReturnTripsPage: () => void;
+  roundTrip: boolean;
 }
 
 export function FilterTripsPage({
   onNavToBookTripPage,
   onNavToReserveTripPage,
+  onNavToFilterReturnTripsPage,
+  roundTrip,
 }: Props) {
   const { flights } = useFlights();
-
-  console.log("Flights");
-  console.log(flights);
-  console.log(flights.departureFlights);
-
   const [sortedResults, setSortedResults] = useState<Flight[]>(
-    flights.departureFlights,
+    flights.departureFlights
   );
+
+  const [selectedTrip, setSelectedTrip] = useState<Flight | null>(null);
+
+  // use state variable to hold our selected trip
+  // this use state var will later ultimately hold the trip we will confirm
+  // via the confirm button
+  console.log("Selected Trip: ", selectedTrip);
+
+  const handleTripSelect = (trip: Flight) => {
+    setSelectedTrip(trip);
+  };
+
 
   if (sortedResults.length != flights.departureFlights.length) {
     setSortedResults(flights.departureFlights);
   }
+
+  console.log("Flights");
+  console.log(flights);
+  console.log(flights.departureFlights);
 
   console.log("Sorted Results");
   console.log(sortedResults);
@@ -70,7 +85,11 @@ export function FilterTripsPage({
       <h1>Filter for the flights that best fit your trip!</h1>
       <div>
         {sortedResults.map((trip, index) => (
-          <div key={index} className="card trip-card">
+          <div 
+          key={index} 
+          className={`card trip-card ${trip === selectedTrip ? "selected" : ""}`}
+          onClick={() => handleTripSelect(trip)}
+          >
             <div className="duration">
               {calculateDurationHours(
                 trip.departDatetime,
@@ -104,7 +123,18 @@ export function FilterTripsPage({
         <button onClick={handleResetFilter}>Reset Filter</button>
         <button onClick={handleFilterByDuration}>Filter by Duration</button>
       </div>
-      <button onClick={() => onNavToBookTripPage()}>
+      <button
+        onClick={() => {
+          if(roundTrip) {
+            // Navigate to FilterReturnTripsPage
+            onNavToFilterReturnTripsPage();
+          } else {
+            // Naviaget to booking page
+            onNavToBookTripPage();
+          }
+        }}
+        disabled={!selectedTrip} //disable the button if there is no trip selected(tripSelected is null)
+      >
         Confirm Selected Flights
       </button>
       <button onClick={() => onNavToReserveTripPage()}>Back</button>
