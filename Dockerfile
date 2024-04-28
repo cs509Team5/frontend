@@ -1,5 +1,5 @@
 # Use an official Node runtime as a parent image
-FROM node:12 as react-build
+FROM node:18 as react-build
 
 # Set the working directory
 WORKDIR /app
