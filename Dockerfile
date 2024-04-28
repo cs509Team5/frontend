@@ -18,6 +18,9 @@ RUN npm run build
 
 # Use Nginx to serve the app
 FROM nginx:alpine
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d
+
 
 # Copy the build output to replace the default nginx contents.
 COPY --from=react-build /app/dist /usr/share/nginx/html
