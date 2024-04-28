@@ -49,9 +49,9 @@ export function ReserveTripPage({
       departureAirport,
       arrivalAirport,
       flightNumber: "0", //0,
-      departureDate: "2023-01-05", // formatDate(departureDate),
-      returnDate: "", //formatDate(arrivalDate),
-      numberOfStopover: "0", //numLayovers,
+      departureDate: formatDate(departureDate),
+      returnDate: formatDate(arrivalDate),
+      numberOfStopover: numLayovers.toString(),
       acceptFirstClass: "true", // firstClass,
       acceptEconomy: "true", //!firstClass,
     });

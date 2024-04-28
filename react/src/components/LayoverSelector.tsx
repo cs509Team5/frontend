@@ -6,7 +6,6 @@ interface Props {
 
 export function LayoverSelector({
   onChecked,
-  startChecked = true,
   children,
 }: Props) {
   return (

@@ -1,5 +1,5 @@
 // FlightContext.tsx
-import React, {
+import {
   createContext,
   useContext,
   useState,
@@ -62,7 +62,7 @@ export const FlightsProvider: FunctionComponent<FlightsProviderProps> = ({
 
   const fetchFlights = async (criteria: FlightCriteria) => {
     console.log(criteria);
-    await fetch("http://localhost:8080/search", {
+    await fetch(import.meta.env.VITE_API_URL + "search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
