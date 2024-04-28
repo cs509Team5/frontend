@@ -1,5 +1,5 @@
 # Use an official Node runtime as a parent image
-FROM node:14
+FROM node:12 as react-build
 
 # Set the working directory
 WORKDIR /app
@@ -20,7 +20,7 @@ RUN npm run build
 FROM nginx:alpine
 
 # Copy the build output to replace the default nginx contents.
-COPY --from=0 /app/dist /usr/share/nginx/html
+COPY --from=react-build /app/dist /usr/share/nginx/html
 
 # Expose port 80 to the outside once the container has launched
 EXPOSE 80
