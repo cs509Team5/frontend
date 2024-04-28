@@ -18,7 +18,7 @@ spec:
         - name: frontend-app
           image: us-central1-docker.pkg.dev/cs509team5/samples/frontend:latest
           ports:
-            - containerPort: 8080 # Default Spring Boot port
+            - containerPort: 80
           env:
             - name: ENV
               value: "prod"
