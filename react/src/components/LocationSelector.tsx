@@ -12,7 +12,7 @@ export function LocationSelector({ children, handleAirportChange }: Props) {
 
   //TODO: This call should be mvoed to the ReserveTripPage and the list of airports should be passed down as a prop
   useEffect(() => {
-    fetch("http://localhost:8080/airports")
+    fetch(import.meta.env.VITE_API_URL + "airports")
       .then((response) => {
         if (response.ok) {
           return response.json();

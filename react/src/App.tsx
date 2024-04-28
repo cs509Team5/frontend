@@ -4,7 +4,6 @@ import { HomePage } from "./pages/HomePage.tsx";
 import { ReserveTripPage } from "./pages/ReserveTripPage.tsx";
 import { FilterTripsPage } from "./pages/FilterTripsPage.tsx";
 import { BookTripPage } from "./pages/BookTripPage.tsx";
-import { mockTripResults } from "./pages/FilterTripsPage.tsx";
 import { FlightsProvider } from "./FlightsContext.tsx";
 import FilterReturnTripsPage from "./pages/FilterReturnTripsPage.tsx";
 

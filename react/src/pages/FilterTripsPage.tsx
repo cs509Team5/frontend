@@ -45,7 +45,8 @@ export function FilterTripsPage({
   const handleFilterByPrice = () => {
     // TODO: Implement
     const sortedTrips = [...sortedResults].sort(
-      (a, b) => 500 - 500, // a.flight.cost - b.flight.cost,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      (_a, _b) => 500 - 500, // a.flight.cost - b.flight.cost,
     );
     setSortedResults(sortedTrips);
   };
@@ -140,17 +141,6 @@ export function FilterTripsPage({
       <button onClick={() => onNavToReserveTripPage()}>Back</button>
     </>
   );
-}
-
-interface Trip {
-  departureAirport: string;
-  departureAirportAbbr: string;
-  arrivalAirport: string;
-  arrivalAirportAbbr: string;
-  duration: string;
-  departureTime: string;
-  arrivalTime: string;
-  price: number;
 }
 
 export const mockTripResults = [
