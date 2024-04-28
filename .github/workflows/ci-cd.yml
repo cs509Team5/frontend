@@ -21,7 +21,7 @@ env:
   GAR_LOCATION: us-central1
   GKE_CLUSTER: cs509cluster
   GKE_ZONE: us-central1-a
-  DEPLOYMENT_NAME: backend-app
+  DEPLOYMENT_NAME: frontend-app
   REPOSITORY: samples
   IMAGE: frontend
 
