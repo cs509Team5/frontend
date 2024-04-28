@@ -48,7 +48,11 @@ function App() {
             />
           )}
           {currentPage === EPage.FilterReturnTripsPage && (
-            <FilterReturnTripsPage />
+            <FilterReturnTripsPage 
+              onNavToBookTripPage={() => setCurrentPage(EPage.BookTripPage)}
+              onNavToFilterTripsPage={() => 
+                setCurrentPage(EPage.FilterTripsPage)}
+              />
           )}
           {currentPage === EPage.BookTripPage && (
             <BookTripPage

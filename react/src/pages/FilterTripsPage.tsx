@@ -130,7 +130,7 @@ export function FilterTripsPage({
             onNavToFilterReturnTripsPage();
           } else {
             // Naviaget to booking page
-            onNavToBookTripPage();
+            onNavToBookTripPage
           }
         }}
         disabled={!selectedTrip} //disable the button if there is no trip selected(tripSelected is null)
