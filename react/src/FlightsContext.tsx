@@ -1,5 +1,5 @@
 // FlightContext.tsx
-import {
+import React, {
   createContext,
   useContext,
   useState,
@@ -17,6 +17,15 @@ interface FlightCriteria {
   numberOfStopover: string; //number;
   acceptFirstClass: string; //boolean;
   acceptEconomy: string; //boolean;
+}
+
+// creating new tsType for booking a trip
+interface ReserveRequest {
+  departureAirport: string;
+  arrivalAirport: string;
+  departureDate: string;
+  flightNumber: string;
+  seatType: string;
 }
 
 export type Flight = {
@@ -62,7 +71,7 @@ export const FlightsProvider: FunctionComponent<FlightsProviderProps> = ({
 
   const fetchFlights = async (criteria: FlightCriteria) => {
     console.log(criteria);
-    await fetch(import.meta.env.VITE_API_URL + "search", {
+    await fetch("http://localhost:8080/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -86,9 +95,31 @@ export const FlightsProvider: FunctionComponent<FlightsProviderProps> = ({
       .catch((error) => console.error("Error fetching flights:", error));
   };
 
+
   return (
     <FlightsContext.Provider value={{ flights, fetchFlights }}>
       {children}
     </FlightsContext.Provider>
   );
 };
+
+  // New method for updating seatCount
+  export const reserveFlight = async(reservation: ReserveRequest) => {
+    try{
+      const response = await fetch("http://localhost:8080/reserve", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reservation),
+    });
+      if(!response.ok) {
+        throw new Error("Network response was NOT ok.");
+      }
+      console.log("Flight reserved successfully");
+
+    } catch(error) {
+      console.error("Error reserving flight:", error)
+    }
+
+  };

@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Flight, useFlights } from "../FlightsContext.tsx";
 
 interface Props {
-  onNavToBookTripPage: () => void;
+  onNavToBookTripPage: (selectedTrips: Flight[]) => void;
   onNavToReserveTripPage: () => void;
-  onNavToFilterReturnTripsPage: () => void;
+  onNavToFilterReturnTripsPage: (selectedTrip: Flight) => void;
   roundTrip: boolean;
 }
 
@@ -127,11 +127,15 @@ export function FilterTripsPage({
       <button
         onClick={() => {
           if(roundTrip) {
+            if(selectedTrip) {
             // Navigate to FilterReturnTripsPage
-            onNavToFilterReturnTripsPage();
+            onNavToFilterReturnTripsPage(selectedTrip);
+            }
           } else {
+            if(selectedTrip) {
             // Naviaget to booking page
-            onNavToBookTripPage
+            onNavToBookTripPage([selectedTrip]);
+            }
           }
         }}
         disabled={!selectedTrip} //disable the button if there is no trip selected(tripSelected is null)
