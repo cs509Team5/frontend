@@ -21,7 +21,8 @@ const enum EPage {
 function App() {
   const [currentPage, setCurrentPage] = useState<EPage>(EPage.Homepage);
   const [roundTrip, setRoundTrip] = useState(true);
-  const [selectedTrip, setSelectedTrips] = useState<Flight[] | null>(null);
+  const [selectedOutboundTrip, setSelectedOutboundTrip] = useState<Flight | null>(null);
+  const [selectedInboundTrip, setSelectedInboundTrip] = useState<Flight | null>(null);
 
   return (
     <>
@@ -46,17 +47,26 @@ function App() {
           {currentPage === EPage.FilterTripsPage && (
             <FilterTripsPage
               onNavToBookTripPage={(selectedTrip) => {
-                setSelectedTrips(selectedTrip);
+                setSelectedOutboundTrip(selectedTrip);
                 setCurrentPage(EPage.BookTripPage);
               }}
               onNavToReserveTripPage={() => setCurrentPage(EPage.ReserveTripPage)}
-              onNavToFilterReturnTripsPage={() => setCurrentPage(EPage.FilterReturnTripsPage)}
+              onNavToFilterReturnTripsPage={
+                (selectedTrip) => {
+                  setSelectedOutboundTrip(selectedTrip);
+                  setCurrentPage(EPage.BookTripPage);
+                  setCurrentPage(EPage.FilterReturnTripsPage);
+                }}
+
               roundTrip={roundTrip} // passing as prop
             />
           )}
           {currentPage === EPage.FilterReturnTripsPage && (
             <FilterReturnTripsPage
-              onNavToBookTripPage={() => setCurrentPage(EPage.BookTripPage)}
+              onNavToBookTripPage={(selectedTrip) => {
+                setSelectedInboundTrip(selectedTrip);
+                setCurrentPage(EPage.BookTripPage);
+              }}
               onNavToFilterTripsPage={() =>
                 setCurrentPage(EPage.FilterTripsPage)}
             />
@@ -65,7 +75,7 @@ function App() {
             <BookTripPage
               onNavToHomePage={() => setCurrentPage(EPage.Homepage)}
               onNavToFilterTripsPage={() => setCurrentPage(EPage.FilterTripsPage)}
-              selectedTrip={selectedTrip ? [selectedTrip[0]] : null}
+              selectedTrip={[selectedInboundTrip, selectedOutboundTrip]}
             />
           )}
         </div>

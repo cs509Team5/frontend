@@ -6,7 +6,7 @@ import { reserveFlight } from "../FlightsContext.tsx";
 interface Props {
   onNavToHomePage: () => void;
   onNavToFilterTripsPage: () => void;
-  selectedTrip: Flight[] | null; //adding the selcted trip as a prop
+  selectedTrip: (Flight | null)[] | null; //adding the selcted trip as a prop
 }
 
 export function BookTripPage({
@@ -22,19 +22,23 @@ export function BookTripPage({
 
   const handleConfirmPurchase = () => {
     selectedTrip.forEach((trip) => {
-      reserveFlight({
-        departureAirport: trip.departAirport,
-        arrivalAirport: trip.arriveAirport,
-        departureDate: trip.departDatetime,
-        flightNumber: trip.flightNumber,
-        seatType: trip.seatClass,
-      });
+      if (trip) {
+        reserveFlight({
+          departureAirport: trip.departAirport,
+          arrivalAirport: trip.arriveAirport,
+          departureDate: trip.departDatetime,
+          flightNumber: trip.flightNumber,
+          seatType: trip.seatClass,
+        });
+      }
 
     })
 
+    // the navigate back to the homepage
     onNavToHomePage();
   }
 
+  // to format the date of the selected flight shown back to the user before final confirmation
   const formatDate = (date: Date) => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1; // getMonth() returns 0-11
@@ -46,12 +50,12 @@ export function BookTripPage({
   return (
     <>
       <h1>Confirm ticket purchase for your trip!</h1>
-      {/* Rendering details of the selectedTrip */}
+      {/* Rendering details of the selectedTrip array */}
       {selectedTrip.map((trip, index) => (
         <div key={index}>
-          <p>Departure Airport: {trip.departAirport}</p>
-          <p>Arrival Airport: {trip.arriveAirport}</p>
-          <p>Departure Date: {trip.departDatetime}</p>
+          {trip !== null && <p>Departure Airport: {trip.departAirport}</p>}
+          {trip !== null && <p>Arrival Airport: {trip.arriveAirport}</p>}
+          {trip !== null && <p>Departure Date: {trip.departDatetime}</p>}
           <hr />
         </div>
       ))}

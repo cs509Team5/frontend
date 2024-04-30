@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Flight, useFlights } from "../FlightsContext.tsx";
 
 interface Props {
-  onNavToBookTripPage: (selectedTrips: Flight[]) => void;
+  onNavToBookTripPage: (selectedTrip: Flight) => void;
   onNavToReserveTripPage: () => void;
   onNavToFilterReturnTripsPage: (selectedTrip: Flight) => void;
   roundTrip: boolean;
@@ -86,10 +86,10 @@ export function FilterTripsPage({
       <h1>Filter for the flights that best fit your trip!</h1>
       <div>
         {sortedResults.map((trip, index) => (
-          <div 
-          key={index} 
-          className={`card trip-card ${trip === selectedTrip ? "selected" : ""}`}
-          onClick={() => handleTripSelect(trip)}
+          <div
+            key={index}
+            className={`card trip-card ${trip === selectedTrip ? "selected" : ""}`}
+            onClick={() => handleTripSelect(trip)}
           >
             <div className="duration">
               {calculateDurationHours(
@@ -126,15 +126,17 @@ export function FilterTripsPage({
       </div>
       <button
         onClick={() => {
-          if(roundTrip) {
-            if(selectedTrip) {
-            // Navigate to FilterReturnTripsPage
-            onNavToFilterReturnTripsPage(selectedTrip);
+          if (roundTrip) {
+            if (selectedTrip) {
+              // Navigate to FilterReturnTripsPage
+              onNavToFilterReturnTripsPage(selectedTrip);
             }
           } else {
-            if(selectedTrip) {
-            // Naviaget to booking page
-            onNavToBookTripPage([selectedTrip]);
+            if (selectedTrip) {
+              // Naviaget to booking page
+              //debug statement
+              console.log("Selected Trip(s): ", selectedTrip)
+              onNavToBookTripPage(selectedTrip);
             }
           }
         }}
