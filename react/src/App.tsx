@@ -8,7 +8,7 @@ import { FlightsProvider } from "./FlightsContext.tsx";
 import FilterReturnTripsPage from "./pages/FilterReturnTripsPage.tsx";
 
 //additional import to enable official reservation mechanism to backend call
-import {Flight} from "./FlightsContext.tsx"
+import { Flight } from "./FlightsContext.tsx"
 
 const enum EPage {
   Homepage = 1,
@@ -39,7 +39,8 @@ function App() {
               onNavToHomePage={() => setCurrentPage(EPage.Homepage)}
               onNavToFilterTripsPage={(roundTripValue) => {
                 setRoundTrip(roundTripValue);
-                setCurrentPage(EPage.FilterTripsPage)}}
+                setCurrentPage(EPage.FilterTripsPage)
+              }}
             />
           )}
           {currentPage === EPage.FilterTripsPage && (
@@ -50,21 +51,21 @@ function App() {
               }}
               onNavToReserveTripPage={() => setCurrentPage(EPage.ReserveTripPage)}
               onNavToFilterReturnTripsPage={() => setCurrentPage(EPage.FilterReturnTripsPage)}
-              roundTrip = {roundTrip} // passing as prop
+              roundTrip={roundTrip} // passing as prop
             />
           )}
           {currentPage === EPage.FilterReturnTripsPage && (
-            <FilterReturnTripsPage 
+            <FilterReturnTripsPage
               onNavToBookTripPage={() => setCurrentPage(EPage.BookTripPage)}
-              onNavToFilterTripsPage={() => 
+              onNavToFilterTripsPage={() =>
                 setCurrentPage(EPage.FilterTripsPage)}
-              />
+            />
           )}
           {currentPage === EPage.BookTripPage && (
             <BookTripPage
               onNavToHomePage={() => setCurrentPage(EPage.Homepage)}
               onNavToFilterTripsPage={() => setCurrentPage(EPage.FilterTripsPage)}
-              selectedTrip={selectedTrip[0]}
+              selectedTrip={selectedTrip ? [selectedTrip[0]] : null}
             />
           )}
         </div>

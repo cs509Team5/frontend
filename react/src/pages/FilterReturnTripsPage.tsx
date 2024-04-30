@@ -3,17 +3,19 @@ import { Flight, useFlights } from "../FlightsContext";
 
 
 interface Props {
-    onNavToBookTripPage: () => void;
+    onNavToBookTripPage: (selectedTrips: (Flight | null)[]) => void;
     onNavToFilterTripsPage: () => void;
+    selectedDepartureTrip: Flight;
 }
 
 export function FilterReturnTripsPage({
     onNavToBookTripPage,
     onNavToFilterTripsPage,
+    selectedDepartureTrip,
 }: Props) {
     const { flights } = useFlights();
-    const [sortedResults, setSortedResults] = useState<Flight[]>(
-        flights.returnFlights // accessing return flights
+    const [sortedResults, setSortedResults] = useState<Flight[]>(flights.returnFlights // accessing return flights
+
     );
 
     const [selectedTrip, setSelectedTrip] = useState<Flight | null>(null);
@@ -109,8 +111,8 @@ export function FilterReturnTripsPage({
           </div>
           <button
             onClick={() => {
-                // Naviaget to booking page
-                onNavToBookTripPage();
+                // Navigate to booking page
+                onNavToBookTripPage([selectedDepartureTrip, selectedTrip]);
             }}
             disabled={!selectedTrip} //disable the button if there is no trip selected(tripSelected is null)
           >

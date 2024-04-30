@@ -1,12 +1,12 @@
-import {useState} from "react";
-import {Flight} from "../FlightsContext.tsx"
+import { useState } from "react";
+import { Flight } from "../FlightsContext.tsx"
 import { useFlights } from "../FlightsContext.tsx";
 import { reserveFlight } from "../FlightsContext.tsx";
 
 interface Props {
   onNavToHomePage: () => void;
   onNavToFilterTripsPage: () => void;
-  selectedTrip: Flight; //adding the selcted trip as a prop
+  selectedTrip: Flight[] | null; //adding the selcted trip as a prop
 }
 
 export function BookTripPage({
@@ -16,18 +16,22 @@ export function BookTripPage({
 }: Props) {
 
 
-  if(!selectedTrip) {
+  if (!selectedTrip) {
     return <p> No trip was selected</p>
   }
 
   const handleConfirmPurchase = () => {
-    reserveFlight({
-      departureAirport: selectedTrip.departAirport,
-      arrivalAirport: selectedTrip.arriveAirport,
-      departureDate: formatDate(new Date(selectedTrip.departDatetime)),
-      flightNumber: selectedTrip.flightNumber,
-      seatType: selectedTrip.seatClass,
-    });
+    selectedTrip.forEach((trip) => {
+      reserveFlight({
+        departureAirport: trip.departAirport,
+        arrivalAirport: trip.arriveAirport,
+        departureDate: trip.departDatetime,
+        flightNumber: trip.flightNumber,
+        seatType: trip.seatClass,
+      });
+
+    })
+
     onNavToHomePage();
   }
 
@@ -43,9 +47,14 @@ export function BookTripPage({
     <>
       <h1>Confirm ticket purchase for your trip!</h1>
       {/* Rendering details of the selectedTrip */}
-      <p>Departure Airport: {selectedTrip.departAirport}</p>
-      <p>Arrival Airport: {selectedTrip.arriveAirport}</p>
-      <p>Departure Date: {selectedTrip.departDatetime}</p>
+      {selectedTrip.map((trip, index) => (
+        <div key={index}>
+          <p>Departure Airport: {trip.departAirport}</p>
+          <p>Arrival Airport: {trip.arriveAirport}</p>
+          <p>Departure Date: {trip.departDatetime}</p>
+          <hr />
+        </div>
+      ))}
       <button onClick={handleConfirmPurchase}>Confirm Purchase</button>
       <button onClick={() => onNavToFilterTripsPage()}>Back</button>
     </>

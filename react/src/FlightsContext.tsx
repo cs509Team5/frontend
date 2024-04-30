@@ -104,22 +104,17 @@ export const FlightsProvider: FunctionComponent<FlightsProviderProps> = ({
 };
 
   // New method for updating seatCount
-  export const reserveFlight = async(reservation: ReserveRequest) => {
-    try{
-      const response = await fetch("http://localhost:8080/reserve", {
+  export const reserveFlight = (reservation: ReserveRequest) => 
+      fetch("http://localhost:8080/reserve", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(reservation),
+    })
+    .then(() => {
+        console.log("Flight reserved successfully");
+    })
+    .catch((error) => {
+      console.error("Error reserving flight:",error)
     });
-      if(!response.ok) {
-        throw new Error("Network response was NOT ok.");
-      }
-      console.log("Flight reserved successfully");
-
-    } catch(error) {
-      console.error("Error reserving flight:", error)
-    }
-
-  };
