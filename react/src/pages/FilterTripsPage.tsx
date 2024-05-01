@@ -39,7 +39,7 @@ export function FilterTripsPage({
     // TODO: Implement
     const sortedTrips = [...sortedResults].sort(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      (_a, _b) => 500 - 500, // a.flight.cost - b.flight.cost,
+      (a, b) => a.price - b.price, // a.flight.cost - b.flight.cost,
     );
     setSortedResults(sortedTrips);
   };

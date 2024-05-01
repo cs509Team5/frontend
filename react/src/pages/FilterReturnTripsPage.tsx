@@ -29,7 +29,7 @@ export function FilterReturnTripsPage({
 
   const handleFilterByPrice = () => {
     const sortedTrips = [...sortedResults].sort(
-      (a, b) => 500 - 500
+      (a, b) => a.price - b.price,
     );
     setSortedResults(sortedTrips)
   };
