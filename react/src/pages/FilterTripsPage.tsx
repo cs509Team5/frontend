@@ -38,8 +38,8 @@ export function FilterTripsPage({
   const handleFilterByPrice = () => {
     // TODO: Implement
     const sortedTrips = [...sortedResults].sort(
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      (a, b) => a.price - b.price, // a.flight.cost - b.flight.cost,
+      // @ts-ignore
+      (a, b) => a.price - b.price,
     );
     setSortedResults(sortedTrips);
   };
