@@ -71,7 +71,7 @@ export const FlightsProvider: FunctionComponent<FlightsProviderProps> = ({
 
   const fetchFlights = async (criteria: FlightCriteria) => {
     console.log(criteria);
-    await fetch("http://localhost:8080/search", {
+    await fetch(import.meta.env.VITE_API_URL + "search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -105,7 +105,7 @@ export const FlightsProvider: FunctionComponent<FlightsProviderProps> = ({
 
   // New method for updating seatCount
   export const reserveFlight = (reservation: ReserveRequest) => 
-      fetch("http://localhost:8080/reserve", {
+      fetch(import.meta.env.VITE_API_URL + "reserve", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
