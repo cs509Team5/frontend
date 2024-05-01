@@ -19,6 +19,15 @@ interface FlightCriteria {
   acceptEconomy: string; //boolean;
 }
 
+// creating new tsType for booking a trip
+interface ReserveRequest {
+  departureAirport: string;
+  arrivalAirport: string;
+  departureDate: string;
+  flightNumber: string;
+  seatType: string;
+}
+
 export type Flight = {
   departDatetime: string;
   arriveDatetime: string;
@@ -86,9 +95,26 @@ export const FlightsProvider: FunctionComponent<FlightsProviderProps> = ({
       .catch((error) => console.error("Error fetching flights:", error));
   };
 
+
   return (
     <FlightsContext.Provider value={{ flights, fetchFlights }}>
       {children}
     </FlightsContext.Provider>
   );
 };
+
+  // New method for updating seatCount
+  export const reserveFlight = (reservation: ReserveRequest) => 
+      fetch("http://localhost:8080/reserve", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reservation),
+    })
+    .then(() => {
+        console.log("Flight reserved successfully");
+    })
+    .catch((error) => {
+      console.error("Error reserving flight:",error)
+    });

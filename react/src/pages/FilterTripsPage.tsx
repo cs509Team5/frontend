@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Flight, useFlights } from "../FlightsContext.tsx";
 
 interface Props {
-  onNavToBookTripPage: () => void;
+  onNavToBookTripPage: (selectedTrip: Flight) => void;
   onNavToReserveTripPage: () => void;
-  onNavToFilterReturnTripsPage: () => void;
+  onNavToFilterReturnTripsPage: (selectedTrip: Flight) => void;
   roundTrip: boolean;
 }
 
@@ -45,7 +45,8 @@ export function FilterTripsPage({
   const handleFilterByPrice = () => {
     // TODO: Implement
     const sortedTrips = [...sortedResults].sort(
-      (a, b) => 500 - 500, // a.flight.cost - b.flight.cost,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      (_a, _b) => 500 - 500, // a.flight.cost - b.flight.cost,
     );
     setSortedResults(sortedTrips);
   };
@@ -85,10 +86,10 @@ export function FilterTripsPage({
       <h1>Filter for the flights that best fit your trip!</h1>
       <div>
         {sortedResults.map((trip, index) => (
-          <div 
-          key={index} 
-          className={`card trip-card ${trip === selectedTrip ? "selected" : ""}`}
-          onClick={() => handleTripSelect(trip)}
+          <div
+            key={index}
+            className={`card trip-card ${trip === selectedTrip ? "selected" : ""}`}
+            onClick={() => handleTripSelect(trip)}
           >
             <div className="duration">
               {calculateDurationHours(
@@ -125,12 +126,18 @@ export function FilterTripsPage({
       </div>
       <button
         onClick={() => {
-          if(roundTrip) {
-            // Navigate to FilterReturnTripsPage
-            onNavToFilterReturnTripsPage();
+          if (roundTrip) {
+            if (selectedTrip) {
+              // Navigate to FilterReturnTripsPage
+              onNavToFilterReturnTripsPage(selectedTrip);
+            }
           } else {
-            // Naviaget to booking page
-            onNavToBookTripPage();
+            if (selectedTrip) {
+              // Naviaget to booking page
+              //debug statement
+              console.log("Selected Trip(s): ", selectedTrip)
+              onNavToBookTripPage(selectedTrip);
+            }
           }
         }}
         disabled={!selectedTrip} //disable the button if there is no trip selected(tripSelected is null)
@@ -140,17 +147,6 @@ export function FilterTripsPage({
       <button onClick={() => onNavToReserveTripPage()}>Back</button>
     </>
   );
-}
-
-interface Trip {
-  departureAirport: string;
-  departureAirportAbbr: string;
-  arrivalAirport: string;
-  arrivalAirportAbbr: string;
-  duration: string;
-  departureTime: string;
-  arrivalTime: string;
-  price: number;
 }
 
 export const mockTripResults = [
