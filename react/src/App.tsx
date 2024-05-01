@@ -18,7 +18,7 @@ const enum EPage {
 
 function App() {
   const [currentPage, setCurrentPage] = useState<EPage>(EPage.Homepage);
-  const [roundTrip, setRoundTrip] = useState(true);
+  //const [roundTrip, setRoundTrip] = useState(true);
 
   return (
     <>
@@ -35,16 +35,21 @@ function App() {
             <ReserveTripPage
               onNavToHomePage={() => setCurrentPage(EPage.Homepage)}
               onNavToFilterTripsPage={(roundTripValue) => {
-                setRoundTrip(roundTripValue);
-                setCurrentPage(EPage.FilterTripsPage)}}
+                () => {};
+                setCurrentPage(EPage.FilterTripsPage);
+              }}
             />
           )}
           {currentPage === EPage.FilterTripsPage && (
             <FilterTripsPage
               onNavToBookTripPage={() => setCurrentPage(EPage.BookTripPage)}
-              onNavToReserveTripPage={() => setCurrentPage(EPage.ReserveTripPage)}
-              onNavToFilterReturnTripsPage={() => setCurrentPage(EPage.FilterReturnTripsPage)}
-              roundTrip = {roundTrip} // passing as prop
+              onNavToReserveTripPage={() =>
+                setCurrentPage(EPage.ReserveTripPage)
+              }
+              onNavToFilterReturnTripsPage={() =>
+                setCurrentPage(EPage.FilterReturnTripsPage)
+              }
+              roundTrip={true} // passing as prop
             />
           )}
           {currentPage === EPage.FilterReturnTripsPage && (

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { LocationSelector } from "../components/LocationSelector.tsx";
-import { DateSelector } from "../components/DateSelector.tsx";
+import DateSelector from "../components/DateSelector.tsx";
 import { CheckBoxSelector } from "../components/CheckBoxSelector.tsx";
 import { LayoverSelector } from "../components/LayoverSelector.tsx";
 import { useFlights } from "../FlightsContext.tsx";
@@ -10,7 +10,7 @@ interface Props {
   onNavToFilterTripsPage: (roundTrip: boolean) => void;
 }
 
-export function ReserveTripPage({
+export default function ReserveTripPage({
   onNavToHomePage,
   onNavToFilterTripsPage,
 }: Props) {
