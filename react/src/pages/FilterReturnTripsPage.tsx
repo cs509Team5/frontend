@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Flight, useFlights } from "../FlightsContext";
 
 
@@ -29,6 +29,7 @@ export function FilterReturnTripsPage({
 
   const handleFilterByPrice = () => {
     const sortedTrips = [...sortedResults].sort(
+      // @ts-ignore
       (a, b) => a.price - b.price,
     );
     setSortedResults(sortedTrips)

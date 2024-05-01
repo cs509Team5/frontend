@@ -1,5 +1,5 @@
+import { useState } from "react";
 import DatePicker from "react-datepicker";
-import { useRef, useState } from "react";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -15,8 +15,6 @@ export default function DateSelector({ children, handleDateSelection }: Props) {
     setCurrentDate(date);
     handleDateSelection(date);
   };
-
-  const ref = useRef();
 
   return (
     <form className="row g-3">

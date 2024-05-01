@@ -1,6 +1,4 @@
-import { useState } from "react";
-import { Flight } from "../FlightsContext.tsx"
-import { useFlights } from "../FlightsContext.tsx";
+import { Flight } from "../FlightsContext.tsx";
 import { reserveFlight } from "../FlightsContext.tsx";
 
 interface Props {
@@ -37,15 +35,6 @@ export function BookTripPage({
     // the navigate back to the homepage
     onNavToHomePage();
   }
-
-  // to format the date of the selected flight shown back to the user before final confirmation
-  const formatDate = (date: Date) => {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1; // getMonth() returns 0-11
-    const day = date.getDate();
-
-    return `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
-  };
 
   return (
     <>
