@@ -29,7 +29,7 @@ export function FilterReturnTripsPage({
 
   const handleFilterByPrice = () => {
     const sortedTrips = [...sortedResults].sort(
-      (a, b) => 500 - 500
+      (a, b) => a.price - b.price,
     );
     setSortedResults(sortedTrips)
   };
@@ -94,7 +94,7 @@ export function FilterReturnTripsPage({
             </div>
             <div className="flight-price">
               <p>
-                <strong>${500}</strong>
+                <strong>${trip.price}</strong>
               </p>
             </div>
           </div>
