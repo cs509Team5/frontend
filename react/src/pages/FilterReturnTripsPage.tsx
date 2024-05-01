@@ -94,7 +94,7 @@ export function FilterReturnTripsPage({
             </div>
             <div className="flight-price">
               <p>
-                <strong>${500}</strong>
+                <strong>${trip.price}</strong>
               </p>
             </div>
           </div>

@@ -37,7 +37,7 @@ export type Flight = {
   seatClass: string;
   flightType: string;
   isLayover: string;
-  //cost?: number;
+  price?: number;
 };
 
 export type SearchResponse = {

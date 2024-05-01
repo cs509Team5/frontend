@@ -9,6 +9,7 @@ import FilterReturnTripsPage from "./pages/FilterReturnTripsPage.tsx";
 
 //additional import to enable official reservation mechanism to backend call
 import { Flight } from "./FlightsContext.tsx"
+import { ReserveSuccessPage } from "./pages/ReserveSuccessPage.tsx";
 
 const enum EPage {
   Homepage = 1,
@@ -16,6 +17,7 @@ const enum EPage {
   FilterTripsPage,
   FilterReturnTripsPage,
   BookTripPage,
+  ReserveSuccessPage,
 }
 
 function App() {
@@ -73,9 +75,14 @@ function App() {
           )}
           {currentPage === EPage.BookTripPage && (
             <BookTripPage
-              onNavToHomePage={() => setCurrentPage(EPage.Homepage)}
+              onNavToHomePage={() => setCurrentPage(EPage.ReserveSuccessPage)}
               onNavToFilterTripsPage={() => setCurrentPage(EPage.FilterTripsPage)}
               selectedTrip={[selectedInboundTrip, selectedOutboundTrip]}
+            />
+          )}
+          {currentPage === EPage.ReserveSuccessPage && (
+            <ReserveSuccessPage
+              onNavToHomePage={() => setCurrentPage(EPage.Homepage)}
             />
           )}
         </div>

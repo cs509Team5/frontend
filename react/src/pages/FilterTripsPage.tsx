@@ -35,13 +35,6 @@ export function FilterTripsPage({
     setSortedResults(flights.departureFlights);
   }
 
-  console.log("Flights");
-  console.log(flights);
-  console.log(flights.departureFlights);
-
-  console.log("Sorted Results");
-  console.log(sortedResults);
-
   const handleFilterByPrice = () => {
     // TODO: Implement
     const sortedTrips = [...sortedResults].sort(
@@ -111,7 +104,7 @@ export function FilterTripsPage({
             </div>
             <div className="flight-price">
               <p>
-                <strong>${500}</strong>
+                <strong>${trip.price}</strong>
               </p>
             </div>
           </div>
@@ -149,35 +142,3 @@ export function FilterTripsPage({
   );
 }
 
-export const mockTripResults = [
-  {
-    departureAirport: "New York",
-    departureAirportAbbr: "JFK",
-    arrivalAirport: "Los Angeles",
-    arrivalAirportAbbr: "LAX",
-    duration: "5hr 15min",
-    departureTime: "9:00 AM",
-    arrivalTime: "2:00 PM",
-    price: 400,
-  },
-  {
-    departureAirport: "Boston",
-    departureAirportAbbr: "BOS",
-    arrivalAirport: "Los Angeles",
-    arrivalAirportAbbr: "LAX",
-    duration: "7hr 15min",
-    departureTime: "9:00 AM",
-    arrivalTime: "4:00 PM",
-    price: 550,
-  },
-  {
-    departureAirport: "Chicago",
-    departureAirportAbbr: "ORD",
-    arrivalAirport: "Los Angeles",
-    arrivalAirportAbbr: "LAX",
-    duration: "9hr 15min",
-    departureTime: "9:00 AM",
-    arrivalTime: "4:00 PM",
-    price: 300,
-  },
-];
