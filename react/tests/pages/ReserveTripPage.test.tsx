@@ -1,4 +1,4 @@
-import ReserveTripPage from "../../src/pages/ReserveTripPage";
+import {ReserveTripPage} from "../../src/pages/ReserveTripPage";
 import { render, screen, renderHook } from "@testing-library/react";
 import { FormProvider, useForm } from "react-hook-form";
 import {

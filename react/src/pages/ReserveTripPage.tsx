@@ -10,7 +10,7 @@ interface Props {
   onNavToFilterTripsPage: (roundTrip: boolean) => void;
 }
 
-export default function ReserveTripPage({
+export function ReserveTripPage({
   onNavToHomePage,
   onNavToFilterTripsPage,
 }: Props) {

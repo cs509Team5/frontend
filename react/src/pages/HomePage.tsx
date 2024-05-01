@@ -4,7 +4,7 @@ interface Props {
   onNavToReserveTripPage: () => void;
 }
 
-export default function HomePage({ onNavToReserveTripPage }: Props) {
+export function HomePage({ onNavToReserveTripPage }: Props) {
   const [idk, setIdk] = useState();
   return (
     <>
