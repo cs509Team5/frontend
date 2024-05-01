@@ -1,8 +1,11 @@
+import { useState } from "react";
+
 interface Props {
   onNavToReserveTripPage: () => void;
 }
 
 export function HomePage({ onNavToReserveTripPage }: Props) {
+  const [idk, setIdk] = useState();
   return (
     <>
       <h1>Airline Reservation Service</h1>

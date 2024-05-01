@@ -8,7 +8,7 @@ import { FlightsProvider } from "./FlightsContext.tsx";
 import FilterReturnTripsPage from "./pages/FilterReturnTripsPage.tsx";
 
 //additional import to enable official reservation mechanism to backend call
-import { Flight } from "./FlightsContext.tsx"
+import { Flight } from "./FlightsContext.tsx";
 import { ReserveSuccessPage } from "./pages/ReserveSuccessPage.tsx";
 
 const enum EPage {
@@ -23,8 +23,11 @@ const enum EPage {
 function App() {
   const [currentPage, setCurrentPage] = useState<EPage>(EPage.Homepage);
   const [roundTrip, setRoundTrip] = useState(true);
-  const [selectedOutboundTrip, setSelectedOutboundTrip] = useState<Flight | null>(null);
-  const [selectedInboundTrip, setSelectedInboundTrip] = useState<Flight | null>(null);
+  const [selectedOutboundTrip, setSelectedOutboundTrip] =
+    useState<Flight | null>(null);
+  const [selectedInboundTrip, setSelectedInboundTrip] = useState<Flight | null>(
+    null,
+  );
 
   return (
     <>
@@ -42,7 +45,7 @@ function App() {
               onNavToHomePage={() => setCurrentPage(EPage.Homepage)}
               onNavToFilterTripsPage={(roundTripValue) => {
                 setRoundTrip(roundTripValue);
-                setCurrentPage(EPage.FilterTripsPage)
+                setCurrentPage(EPage.FilterTripsPage);
               }}
             />
           )}
@@ -52,14 +55,14 @@ function App() {
                 setSelectedOutboundTrip(selectedTrip);
                 setCurrentPage(EPage.BookTripPage);
               }}
-              onNavToReserveTripPage={() => setCurrentPage(EPage.ReserveTripPage)}
-              onNavToFilterReturnTripsPage={
-                (selectedTrip) => {
-                  setSelectedOutboundTrip(selectedTrip);
-                  setCurrentPage(EPage.BookTripPage);
-                  setCurrentPage(EPage.FilterReturnTripsPage);
-                }}
-
+              onNavToReserveTripPage={() =>
+                setCurrentPage(EPage.ReserveTripPage)
+              }
+              onNavToFilterReturnTripsPage={(selectedTrip) => {
+                setSelectedOutboundTrip(selectedTrip);
+                setCurrentPage(EPage.BookTripPage);
+                setCurrentPage(EPage.FilterReturnTripsPage);
+              }}
               roundTrip={roundTrip} // passing as prop
             />
           )}
@@ -70,13 +73,16 @@ function App() {
                 setCurrentPage(EPage.BookTripPage);
               }}
               onNavToFilterTripsPage={() =>
-                setCurrentPage(EPage.FilterTripsPage)}
+                setCurrentPage(EPage.FilterTripsPage)
+              }
             />
           )}
           {currentPage === EPage.BookTripPage && (
             <BookTripPage
               onNavToHomePage={() => setCurrentPage(EPage.ReserveSuccessPage)}
-              onNavToFilterTripsPage={() => setCurrentPage(EPage.FilterTripsPage)}
+              onNavToFilterTripsPage={() =>
+                setCurrentPage(EPage.FilterTripsPage)
+              }
               selectedTrip={[selectedInboundTrip, selectedOutboundTrip]}
             />
           )}

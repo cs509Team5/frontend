@@ -51,7 +51,7 @@ interface FlightsContextType {
   fetchFlights: (criteria: FlightCriteria) => void;
 }
 
-const FlightsContext = createContext<FlightsContextType | null>(null);
+export const FlightsContext = createContext<FlightsContextType | null>(null);
 
 export const useFlights = () =>
   useContext(FlightsContext) as FlightsContextType;
